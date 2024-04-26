@@ -1,4 +1,3 @@
-```
 # Expense Management System
 
 ## Overview
@@ -46,4 +45,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Contact
 
 If you have any questions or suggestions regarding the Expense Management System, please contact us at dukelester4@gmail.com. We'd love to hear from you!
-```
+

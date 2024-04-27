@@ -1,11 +1,43 @@
 {% extends "base_auth.html" %}
 
 {% block content %}
-<div class="card">
-    <div class="card-body">
-        <h2> Login </h2>
-      
+
+  <div class="main-wrapper">
+   
+    <div class="card">
+      <div class="container">
+        <br> <br> <br>
+        <!-- Account Logo -->
+          <h2> Ekash </h2>
+        <!-- /Account Logo -->
+        <br> <br> <br> <br> <br> <br> <br> <br> <br> 
+        <div class="account-box">
+          <div class="account-wrapper">
+            <h3 class="account-title">Login To your Account</h3>
+            
+            <!-- Account Form -->
+            <form action="{% url 'register' %}" method='POST'>
+              {% csrf_token %}
+              <div class="input-block mb-4">
+                <label class="col-form-label">Email<span class="mandatory">*</span></label>
+                <input class="form-control" type="email" name="email">
+              </div>
+              <div class="input-block mb-4">
+                <label class="col-form-label">Password<span class="mandatory">*</span></label>
+                <input class="form-control" type="password" name="password1">
+              </div>
+              <div class="input-block mb-4 text-center">
+                <button class="btn btn-primary account-btn" type="submit">Login</button>
+              </div>
+              <div class="account-footer">
+                <p>Forgot your password? <a href="">Forgot password</a></p>
+              </div>
+            </form>
+            <!-- /Account Form -->
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+
 
 {% endblock content %}

@@ -1,11 +1,51 @@
 {% extends "base_auth.html" %}
 
 {% block content %}
-<div class="card">
-    <div class="card-body">
-        <h2> Register </h2>
-      
+
+  <div class="main-wrapper">
+   
+    <div class="card">
+      <div class="container">
+        <br> <br> <br>
+        <!-- Account Logo -->
+          <h2> Ekash </h2>
+        <!-- /Account Logo -->
+        <br> <br> <br> <br> <br> <br> <br> <br> <br> 
+        <div class="account-box">
+          <div class="account-wrapper">
+            <h3 class="account-title">Register For Free Account</h3>
+            
+            <!-- Account Form -->
+            <form action="{% url 'register' %}" method='POST'>
+              {% csrf_token %}
+              <div class="input-block mb-4">
+                <label class="col-form-label">Email<span class="mandatory">*</span></label>
+                <input class="form-control" type="email" name="email">
+              </div>
+              <div class="input-block mb-4">
+                <label class="col-form-label">Username<span class="mandatory">*</span></label>
+                <input class="form-control" type="text" name="username">
+              </div>
+              <div class="input-block mb-4">
+                <label class="col-form-label">Password<span class="mandatory">*</span></label>
+                <input class="form-control" type="password" name="password1">
+              </div>
+              <div class="input-block mb-4">
+                <label class="col-form-label">Repeat Password<span class="mandatory">*</span></label>
+                <input class="form-control" type="password" name="password2">
+              </div>
+              <div class="input-block mb-4 text-center">
+                <button class="btn btn-primary account-btn" type="submit">Register</button>
+              </div>
+              <div class="account-footer">
+                <p>Already have an account? <a href="">Login</a></p>
+              </div>
+            </form>
+            <!-- /Account Form -->
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+
 
 {% endblock content %}

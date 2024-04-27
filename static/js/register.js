@@ -3,6 +3,24 @@ const usernameField = document.querySelector('#usernameField');
 const emailField = document.querySelector('#email');
 const invalidFeedBackArea = document.querySelector('.invalid_feedback');
 const inavlidEmail = document.querySelector('.invalid_feedback_email');
+const passwordField = document.querySelector('.password');
+const confirmPasswordField = document.querySelector('#password2');
+const showAPasswordToggle = document.querySelector('#showAPasswordToggle');
+
+console.log('here us ', showAPasswordToggle)
+
+showAPasswordToggle.addEventListener('click', (e) => {
+    if (showAPasswordToggle.textContent === 'SHOW') {
+        showAPasswordToggle.textContent = 'HIDE';
+        passwordField.setAttribute('type', 'password');
+        confirmPasswordField.setAttribute('type', 'password');
+    } else {
+        showAPasswordToggle.textContent = 'SHOW';
+        passwordField.setAttribute('type', 'text');
+        confirmPasswordField.setAttribute('type', 'text');
+    };
+});
+
 
 usernameField.classList.remove('is-invalid');
 invalidFeedBackArea.style.display = 'none';

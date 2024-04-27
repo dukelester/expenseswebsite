@@ -49,8 +49,14 @@ def register(request):
         email = request.POST.get('email')
         password = request.POST.get('password1')
         confirm_password = request.POST.get('password2')
+
+        context = {
+            'field_values': request.POST,
+        }
+
         if len(password) < 4:
             messages.error(request, 'Password too short')
+            return render(request, 'authentication/register.html', context)
         if not User.objects.filter(username=username).exists():
             if not User.objects.filter(email=email).exists():
                 if match_password(password, confirm_password):
@@ -63,6 +69,7 @@ def register(request):
                     messages.success(request, 'Account successfully Created')
                     return JsonResponse({'success': 'suceses'})
                 messages.info(request, 'Password must match')
+                return render(request, 'authentication/register.html', context)
         #     messages.error(request, 'Kindly choose another Email address!')
         #     return render(request, 'authentication/register.html')
         # messages.error(request, 'Kindly choose another Username!')

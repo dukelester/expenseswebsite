@@ -7,7 +7,6 @@ const passwordField = document.querySelector('.password');
 const confirmPasswordField = document.querySelector('#password2');
 const showAPasswordToggle = document.querySelector('#showAPasswordToggle');
 
-console.log('here us ', showAPasswordToggle)
 
 showAPasswordToggle.addEventListener('click', (e) => {
     if (showAPasswordToggle.textContent === 'SHOW') {

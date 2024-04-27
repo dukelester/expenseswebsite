@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.http import JsonResponse
 from django.contrib.auth.models import User
@@ -38,9 +38,35 @@ class UsernameValidationView(View):
                 }, status=409)
         return JsonResponse({ 'username_valid': True})
 
+def match_password(password1, password2):
+    if( len(password1) == len(password2)) and password1 == password2:
+        return True
+
+
 def register(request):
     if request.method == 'POST':
-        messages.success(request, 'success message')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password1')
+        confirm_password = request.POST.get('password2')
+        if len(password) < 4:
+            messages.error(request, 'Password too short')
+        if not User.objects.filter(username=username).exists():
+            if not User.objects.filter(email=email).exists():
+                if match_password(password, confirm_password):
+                    user = User.objects.create(
+                        username= username,
+                        email=email,
+                    )
+                    user.set_password(password)
+                    user.save()
+                    messages.success(request, 'Account successfully Created')
+                    return JsonResponse({'success': 'suceses'})
+                messages.info(request, 'Password must match')
+        #     messages.error(request, 'Kindly choose another Email address!')
+        #     return render(request, 'authentication/register.html')
+        # messages.error(request, 'Kindly choose another Username!')
+        # return render(request, 'authentication/register.html')
     return render(request, 'authentication/register.html')
 
 def login(request):

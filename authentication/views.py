@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+from django.contrib import messages
+
+
 from validate_email import validate_email
 
 import json
@@ -36,6 +39,8 @@ class UsernameValidationView(View):
         return JsonResponse({ 'username_valid': True})
 
 def register(request):
+    if request.method == 'POST':
+        messages.success(request, 'success message')
     return render(request, 'authentication/register.html')
 
 def login(request):

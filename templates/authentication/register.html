@@ -18,6 +18,7 @@
             <!-- Account Form -->
             <form action="{% url 'register' %}" method='POST'>
               {% csrf_token %}
+              {% include "partials/messages.html" %}
               <div class="input-block mb-4">
                 <label class="col-form-label">Email<span class="mandatory">*</span></label>
                 <input class="form-control" type="email" name="email" id="email">

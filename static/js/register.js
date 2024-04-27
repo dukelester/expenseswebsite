@@ -11,12 +11,12 @@ const showAPasswordToggle = document.querySelector('#showAPasswordToggle');
 showAPasswordToggle.addEventListener('click', (e) => {
     if (showAPasswordToggle.textContent === 'SHOW') {
         showAPasswordToggle.textContent = 'HIDE';
-        passwordField.setAttribute('type', 'password');
-        confirmPasswordField.setAttribute('type', 'password');
-    } else {
-        showAPasswordToggle.textContent = 'SHOW';
         passwordField.setAttribute('type', 'text');
         confirmPasswordField.setAttribute('type', 'text');
+    } else {
+        showAPasswordToggle.textContent = 'SHOW';
+        passwordField.setAttribute('type', 'password');
+        confirmPasswordField.setAttribute('type', 'password');
     };
 });
 

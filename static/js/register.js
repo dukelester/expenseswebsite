@@ -7,6 +7,7 @@ const passwordField = document.querySelector('.password');
 const confirmPasswordField = document.querySelector('#password2');
 const showAPasswordToggle = document.querySelector('#showAPasswordToggle');
 
+const accountButton = document.querySelector('.account-btn');
 
 showAPasswordToggle.addEventListener('click', (e) => {
     if (showAPasswordToggle.textContent === 'SHOW') {
@@ -38,8 +39,13 @@ usernameField.addEventListener('keyup', (e) => {
                 usernameField.classList.add('is-invalid');
                 invalidFeedBackArea.style.display = 'block';
                 invalidFeedBackArea.innerHTML = `<p>${data.username_error}</p>`
+                accountButton.disabled = true;
+            } else {
+                accountButton.disabled = false;
             }
         });
+    } else {
+        accountButton.disabled = true;
     }
 });
 
@@ -55,8 +61,13 @@ emailField.addEventListener('keyup', (e) => {
             if(data.email_error) {
                 emailField.classList.add('is-invalid');
                 inavlidEmail.style.display = 'block';
-                inavlidEmail.innerHTML = `<p>${data.email_error}</p>`
+                inavlidEmail.innerHTML = `<p>${data.email_error}</p>`;
+                accountButton.disabled = true;
+            } else {
+                accountButton.disabled = false;
             }
         });
+    } else {
+        accountButton.disabled = true;
     }
 });

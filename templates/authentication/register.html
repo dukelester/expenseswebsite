@@ -1,5 +1,5 @@
 {% extends "base_auth.html" %}
-
+{% load static %}
 {% block content %}
 
   <div class="main-wrapper">
@@ -24,7 +24,7 @@
               </div>
               <div class="input-block mb-4">
                 <label class="col-form-label">Username<span class="mandatory">*</span></label>
-                <input class="form-control" type="text" name="username">
+                <input class="form-control" type="text" name="username" id="usernameField">
               </div>
               <div class="input-block mb-4">
                 <label class="col-form-label">Password<span class="mandatory">*</span></label>
@@ -46,6 +46,7 @@
         </div>
       </div>
     </div>
+<script src="{% static 'js/register.js' %}"> </script>
 
 
 {% endblock content %}

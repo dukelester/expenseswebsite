@@ -20,7 +20,9 @@
               {% csrf_token %}
               <div class="input-block mb-4">
                 <label class="col-form-label">Email<span class="mandatory">*</span></label>
-                <input class="form-control" type="email" name="email">
+                <input class="form-control" type="email" name="email" id="email">
+              </div>
+              <div class="invalid-feedback  invalid_feedback_email" style="display: none">
               </div>
               <div class="input-block mb-4">
                 <label class="col-form-label">Username<span class="mandatory">*</span></label>

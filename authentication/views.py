@@ -3,6 +3,7 @@ from django.views import View
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.core.mail import EmailMessage
 
 
 from validate_email import validate_email
@@ -65,8 +66,18 @@ def register(request):
                         email=email,
                     )
                     user.set_password(password)
+                    user.is_active = False
                     user.save()
                     messages.success(request, 'Account successfully Created')
+                    subject = 'Activate your Account'
+                    email_body = 'Account Activation'
+                    email = EmailMessage(
+                        subject,
+                        email_body,
+                        "from@example.com",
+                        [email,],
+                    )
+                    email.send(fail_silently=False)
                     return JsonResponse({'success': 'suceses'})
                 messages.info(request, 'Password must match')
                 return render(request, 'authentication/register.html', context)

@@ -16,15 +16,15 @@
             <h3 class="account-title">Login To your Account</h3>
             {% include "partials/messages.html" %}
             <!-- Account Form -->
-            <form action="{% url 'register' %}" method='POST'>
+            <form action="{% url 'login' %}" method='POST'>
               {% csrf_token %}
               <div class="input-block mb-4">
-                <label class="col-form-label">Email<span class="mandatory">*</span></label>
-                <input class="form-control" type="email" name="email">
+                <label class="col-form-label">Usename<span class="mandatory">*</span></label>
+                <input class="form-control" type="text" name="username" required>
               </div>
               <div class="input-block mb-4">
                 <label class="col-form-label">Password<span class="mandatory">*</span></label>
-                <input class="form-control" type="password" name="password1">
+                <input class="form-control" type="password" name="password">
               </div>
               <div class="input-block mb-4 text-center">
                 <button class="btn btn-primary account-btn" type="submit">Login</button>

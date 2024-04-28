@@ -8,7 +8,7 @@ from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
-
+from django.contrib import auth
 
 from dotenv import load_dotenv
 from validate_email import validate_email
@@ -123,6 +123,22 @@ class EmailVerificationView(View):
             JsonResponse({'error': e})
 
 def login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        if username and password:
+            user = auth.authenticate(username=username, password=password)
+            if user:
+                if user.is_active:
+                    auth.login(request, user)
+                    messages.success(request, f'Welcome {user.username}. You are now logged in')
+                    return redirect('expenses')
+                messages.error(request, 'Your account is not active. Check your email to activate')
+                return render(request, 'authentication/login.html')
+            messages.error(request, 'Invalid user credentials')
+            return render(request, 'authentication/login.html')
+        messages.error(request, 'Details Cannot be null')
+        return render(request, 'authentication/login.html')
     return render(request, 'authentication/login.html')
 
 def  register_success(request):

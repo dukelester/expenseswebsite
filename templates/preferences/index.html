@@ -3,19 +3,26 @@
 {% block content %}
 
 <h3>Preferred Currency </h3>
+{% include "partials/messages.html" %}
 <div class="main-wrapper">
     <div class="card">
+        <form action="{% url 'preferences' %}" method='POST'>
+            {% csrf_token %}
         <div class="input-group mb-3 m-5">
-            <select class="custom-select m-2" id="inputGroupSelect02">
-              <option selected>Choose...</option>
-              {% for currency in currencies %}
-              <option value="1">{{ currency.name }} - {{ currency.value }}</option>
-              {% endfor %}
+            <select class="custom-select m-2" name="currency" id="inputGroupSelect02" value="{{ currency.name }} - {{ currency.value }}">
+                {% if user_preferences.currency %}
+                <option selected name="currency" value="{{ user_preferences.currency }}"> {{ user_preferences.currency }}</option>
+                {% endif %}
+            {% for currency in currencies %}
+            
+            <option name="currency" value="{{ currency.name }} - {{ currency.value }}">{{ currency.name }} - {{ currency.value }}</option>
+            {% endfor %}
             </select>
-            <div class="input-group-append">
-              <label class="input-group-text" for="inputGroupSelect02">Options</label>
-            </div>
+            <div class="input-block mb-4 text-center">
+                <button class="btn btn-primary account-btn" type="submit">Save</button>
+              </div>
           </div>
+        </form>
 </div>
 </div>
 {% endblock content %}

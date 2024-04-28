@@ -1,0 +1,29 @@
+{% extends "base_auth.html" %}
+
+{% block content %}
+
+<div class="main-wrapper">
+   
+    <div class="card">
+      <div class="container">
+        <br> <br> <br>
+        <!-- Account Logo -->
+          <h2> Ekash </h2>
+        <!-- /Account Logo -->
+        <br> <br> <br> <br> <br> <br> <br> <br> <br> 
+        <div class="account-box">
+          <div class="account-wrapper">
+            
+            {% include "partials/messages.html" %}
+            <!-- Account Form -->
+            <p> Your Ekash account has been successfuilly created.
+                An email has been sent to your email with instructions on how to activate your account.
+                Cheers!
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+{% endblock %}

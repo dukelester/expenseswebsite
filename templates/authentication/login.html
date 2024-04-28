@@ -14,7 +14,7 @@
         <div class="account-box">
           <div class="account-wrapper">
             <h3 class="account-title">Login To your Account</h3>
-            
+            {% include "partials/messages.html" %}
             <!-- Account Form -->
             <form action="{% url 'register' %}" method='POST'>
               {% csrf_token %}

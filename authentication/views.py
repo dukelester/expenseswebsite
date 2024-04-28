@@ -99,18 +99,31 @@ def register(request):
                         [email,],
                     )
                     email.send(fail_silently=False)
-                    return JsonResponse({'success': 'suceses'})
+                    return redirect('/authentication/success')
                 messages.info(request, 'Password must match')
                 return render(request, 'authentication/register.html', context)
-        #     messages.error(request, 'Kindly choose another Email address!')
-        #     return render(request, 'authentication/register.html')
-        # messages.error(request, 'Kindly choose another Username!')
-        # return render(request, 'authentication/register.html')
     return render(request, 'authentication/register.html')
 
 class EmailVerificationView(View):
     def get(self, request, uidb64, token):
-        return redirect('/login')
+        try:
+            user_id = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=user_id)
+            if not token_generator.check_token(user, token):
+                messages.info(request, 'Your account has been activated. Login now')
+                return redirect('/authentication/login')
+            if user.is_active:
+                return redirect('/authentication/login')
+            user.is_active = True
+            user.save()
+            messages.success(request,
+                            'Your account has been activated successfully! Proceed to login')
+            return redirect('/authentication/login')
+        except Exception as e:
+            JsonResponse({'error': e})
 
 def login(request):
     return render(request, 'authentication/login.html')
+
+def  register_success(request):
+    return render(request, 'authentication/success_registration.html')

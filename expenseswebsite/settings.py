@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_password_validators.password_history',
     'expenses',
     'authentication',
+    
 ]
 
 MIDDLEWARE = [

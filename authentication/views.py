@@ -5,12 +5,14 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.mail import EmailMessage
 
-
+from dotenv import load_dotenv
 from validate_email import validate_email
 
 import json
-
+import os
 # Create your views here.
+
+load_dotenv()
 class EmailValidationView(View):
     def post(self, request):
         data = json.loads(request.body)
@@ -74,7 +76,7 @@ def register(request):
                     email = EmailMessage(
                         subject,
                         email_body,
-                        "from@example.com",
+                        os.getenv("DEFAULT_FROM_EMAIL"),
                         [email,],
                     )
                     email.send(fail_silently=False)

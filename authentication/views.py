@@ -143,3 +143,8 @@ def login(request):
 
 def  register_success(request):
     return render(request, 'authentication/success_registration.html')
+
+def logout(request):
+    auth.logout(request)
+    messages.success(request, 'You have successfully logged out!')
+    return redirect('/authentication/login')

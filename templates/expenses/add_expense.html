@@ -11,10 +11,14 @@
       </nav>
       <form>
         <div class="form-row align-items-center">
-          <div class="col-sm-3 my-1">
+            
+            <div class="col-sm-3 my-1">
             <label class="sr-only" for="inlineFormInputName">Category</label>
-            <input type="text" class="form-control" id="inlineFormInputName" placeholder="Travel" name="category">
-          </div>
+            <select class="custom-select" id="inputGroupSelect02" name="category">
+                <option selected>Choose...</option>
+                <option value="1">One</option>
+              </select>
+            </div>
           <div class="col-sm-3 my-1">
             <label class="sr-only" for="inlineFormInputName">Amount</label>
             <input type="float" class="form-control" id="inlineFormInputName" placeholder="200.00" name="amount">

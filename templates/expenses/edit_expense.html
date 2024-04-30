@@ -10,14 +10,15 @@
         </ol>
       </nav>
      
-      <form action="{% url 'edit_expense' values.id %}" method="POST"> 
+      <form action="{% url 'edit_expense' expense.id %}" method="POST"> 
         {% csrf_token %}
         <div class="form-row align-items-center">
             
             <div class="col-sm-3 my-1">
             <label class="sr-only" for="inlineFormInputName">Category</label>
+
             <select class="custom-select" id="inputGroupSelect02" name="category">
-                <option selected value="{{ category.name }}" name="category"> {{ values.category }}</option>
+                <option selected value="{{ values.category }}" name="category"> {{ values.category }}</option>
                 {% for category in categories %}
                 <option name="category" value="{{ category.name }}" >{{ category.name }}</option>
                 {% endfor %}

@@ -23,7 +23,7 @@ def add_expense(request):
         description = request.POST.get('description')
         category = request.POST.get('category')
         expense_date = request.POST.get('expense_date')
-        print(amount, description, category, expense_date)
+
         if not amount:
             messages.error(request, 'The amount cant be empty!')
             return render(request, 'expenses/add_expense.html', context)
@@ -39,7 +39,7 @@ def add_expense(request):
             messages.success(request, 'The Expense was added successfully!')
             return redirect('expenses')
         except Exception as e:
-            messages.error(request, f'{e} \n The Expense was added successfully!')
+            messages.error(request, f'{e} \n Adding the expense caused an error')
             return render(request, 'expenses/add_expense.html', context)
     return render(request, 'expenses/add_expense.html', context)
 
@@ -50,9 +50,29 @@ def edit_expense(request, expense_id):
     context = {
         'expense': expense,
         'values': expense,
+        'categories': Category.objects.all(),
     }
     if request.method == 'POST':
-        messages.info(request, 'Handling the post')
+        amount = request.POST.get('amount')
+        description = request.POST.get('description')
+        category = request.POST.get('category')
+        expense_date = request.POST.get('expense_date')
 
-        return render(request, 'expenses/edit_expense.html', context)
+        if not amount:
+            messages.error(request, 'The amount cant be empty!')
+            return render(request, 'expenses/edit_expense.html', context)
+        if not description:
+            messages.error(request, 'The description cant be empty!')
+            return render(request, 'expenses/edit_expense.html', context)
+        try:
+            expense.amount = amount
+            expense.category = category
+            expense.description = description
+            expense.date = expense_date
+            expense.save()
+            messages.success(request, 'The Expense was updated successfully!')
+            return redirect('expenses')
+        except Exception as e:
+            messages.error(request, f'{e} \n Error occurred while updating')
+            return render(request, 'expenses/edit_expense.html', context)
     return render(request, 'expenses/edit_expense.html', context)

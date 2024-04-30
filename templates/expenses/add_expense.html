@@ -16,7 +16,9 @@
             <label class="sr-only" for="inlineFormInputName">Category</label>
             <select class="custom-select" id="inputGroupSelect02" name="category">
                 <option selected>Choose...</option>
-                <option value="1">One</option>
+                {% for category in categories %}
+                <option value="1">{{ category.name }}</option>
+                {% endfor %}
               </select>
             </div>
           <div class="col-sm-3 my-1">

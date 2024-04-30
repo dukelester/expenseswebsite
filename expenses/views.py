@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
+from . models import Category
+
 # Create your views here.
 @login_required(login_url='authentication/login')
 def index(request):
@@ -8,4 +10,8 @@ def index(request):
 
 @login_required(login_url='authentication/login')
 def add_expense(request):
-    return render(request, 'expenses/add_expense.html')
+    categories = Category.objects.all()
+    context = {
+        'categories': categories,
+    }
+    return render(request, 'expenses/add_expense.html', context)

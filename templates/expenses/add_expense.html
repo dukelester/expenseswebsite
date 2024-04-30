@@ -17,7 +17,7 @@
             <select class="custom-select" id="inputGroupSelect02" name="category">
                 <option selected>Choose...</option>
                 {% for category in categories %}
-                <option value="1">{{ category.name }}</option>
+                <option value="1" name="category" value="{{ category.name }}">{{ category.name }}</option>
                 {% endfor %}
               </select>
             </div>

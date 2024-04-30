@@ -9,29 +9,31 @@
           <li class="breadcrumb-item active" aria-current="page">Add Expense</li>
         </ol>
       </nav>
-      <form>
+     
+      <form action="{% url 'add_expense' %}" method="POST"> 
+        {% csrf_token %}
         <div class="form-row align-items-center">
             
             <div class="col-sm-3 my-1">
             <label class="sr-only" for="inlineFormInputName">Category</label>
             <select class="custom-select" id="inputGroupSelect02" name="category">
-                <option selected>Choose...</option>
+                <option selected value="{{ category.name }}" name="category"> {{ values.category }}</option>
                 {% for category in categories %}
-                <option value="1" name="category" value="{{ category.name }}">{{ category.name }}</option>
+                <option name="category" value="{{ category.name }}" >{{ category.name }}</option>
                 {% endfor %}
               </select>
             </div>
           <div class="col-sm-3 my-1">
             <label class="sr-only" for="inlineFormInputName">Amount</label>
-            <input type="float" class="form-control" id="inlineFormInputName" placeholder="200.00" name="amount">
+            <input type="number" class="form-control" id="inlineFormInputName" placeholder="200.00" name="amount" required value="{{ values.amount}}">
           </div>
           <div class="col-sm-3 my-1">
             <label class="sr-only" for="inlineFormInputName">Description</label>
-            <input type="text" class="form-control" placeholder="Travelled to Kiambu" name="description">
+            <input type="text" class="form-control" placeholder="Travelled to Kiambu" name="description" required value="{{ values.description }}">
           </div>
           <div class="col-sm-3 my-1">
             <label class="sr-only" for="inlineFormInputName">Date Of Expense</label>
-            <input type="date" class="form-control" id="inlineFormInputName" name="expense_date">
+            <input type="date" class="form-control" id="inlineFormInputName" name="expense_date" required>
           </div>
           <div class="col-auto my-1">
             <button type="submit" class="btn btn-primary">Submit</button>

@@ -76,3 +76,15 @@ def edit_expense(request, expense_id):
             messages.error(request, f'{e} \n Error occurred while updating')
             return render(request, 'expenses/edit_expense.html', context)
     return render(request, 'expenses/edit_expense.html', context)
+
+
+def delete_expense(request, expense_id):
+    expense = Expense.objects.get(pk=expense_id)
+    try:
+        expense.delete()
+        messages.success(request, 'The expense has been successfully deleted!')
+        return redirect('expenses')
+    except Exception as e:
+        messages.error(request, f'{e} \n Error occurred while deleting')
+        return redirect('expenses')
+

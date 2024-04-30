@@ -31,6 +31,7 @@
         <th>Description</th>
         <th>Date</th>
         <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -44,7 +45,9 @@
         <td>
           <a href="{% url 'edit_expense' expense.id %}" class="btn btn-secondary">Edit</a>
         </td>
-       
+        <td>
+          <a href="{% url 'delete_expense' expense.id %}" class="btn btn-danger">Delete</a>
+        </td>
       </tr>
     {% endfor %}
     </tbody>

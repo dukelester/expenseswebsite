@@ -7,7 +7,9 @@ from . models import Category, Expense
 # Create your views here.
 @login_required(login_url='authentication/login')
 def index(request):
-    return render(request, 'expenses/index.html')
+    expenses = Expense.objects.filter(user=request.user).all()
+    print(expenses)
+    return render(request, 'expenses/index.html', { 'expenses': expenses })
 
 @login_required(login_url='authentication/login')
 def add_expense(request):

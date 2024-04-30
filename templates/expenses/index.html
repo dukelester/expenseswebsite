@@ -19,6 +19,7 @@
 </div>
 </div>
 
+{% if expenses %}
 <div class="container mt-4">
   
   <table class=" table table-primary">
@@ -29,19 +30,29 @@
         <th>Category</th>
         <th>Description</th>
         <th>Date</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
+      {% for expense in expenses %}
       <tr>
-        <th scope="row">1</th>
-        <td>200 Kes</td>
-        <td>Travel</td>
-        <td>Went to uganda</td>
-        <td> 22-02-2023</td>
+        <th scope="row">{{ forloop.counter}}</th>
+        <td>{{ expense.amount }}</td>
+        <td>{{ expense.category }}</td>
+        <td>{{ expense.description }}</td>
+        <td> {{ expense.date }}</td>
+        <td>
+          <a href="{% url 'edit_expense' expense.id %}" class="btn btn-secondary">Edit</a>
+        </td>
+       
       </tr>
-     
+    {% endfor %}
     </tbody>
   </table>
+  
 </div>
+{% else %}
+<h6> You do not have any expeses yest! Add expenses your now</h6>
+{% endif %}
 </div>
  {% endblock %}

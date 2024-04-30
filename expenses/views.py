@@ -42,3 +42,17 @@ def add_expense(request):
             messages.error(request, f'{e} \n The Expense was added successfully!')
             return render(request, 'expenses/add_expense.html', context)
     return render(request, 'expenses/add_expense.html', context)
+
+
+@login_required(login_url='authentication/login')
+def edit_expense(request, expense_id):
+    expense = Expense.objects.get(pk=expense_id)
+    context = {
+        'expense': expense,
+        'values': expense,
+    }
+    if request.method == 'POST':
+        messages.info(request, 'Handling the post')
+
+        return render(request, 'expenses/edit_expense.html', context)
+    return render(request, 'expenses/edit_expense.html', context)

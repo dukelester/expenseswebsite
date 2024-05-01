@@ -9,7 +9,7 @@ from . models import Category, Expense
 @login_required(login_url='authentication/login')
 def index(request):
     expenses = Expense.objects.filter(user=request.user).all()
-    paginator = Paginator(expenses, 4)
+    paginator = Paginator(expenses, 5)
     page_number = request.GET.get('page')
     page_object = Paginator.get_page(paginator, page_number)
     context = { 'expenses': expenses, 'page_object': page_object }
@@ -82,6 +82,7 @@ def edit_expense(request, expense_id):
     return render(request, 'expenses/edit_expense.html', context)
 
 
+@login_required(login_url='authentication/login')
 def delete_expense(request, expense_id):
     expense = Expense.objects.get(pk=expense_id)
     try:

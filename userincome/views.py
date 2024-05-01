@@ -10,7 +10,7 @@ from userpreferences.models import UserPreferences
 
 # Create your views here.
 
-def search_incomes(request):
+def search_user_income(request):
     if request.method == 'POST':
         search_text = json.loads(request.body).get('searchText')
         incomes = (
@@ -34,7 +34,7 @@ def index(request):
     return render(request, 'income/index.html', context)
 
 @login_required(login_url='authentication/login')
-def add_userincome(request):
+def add_user_income(request):
     sources = SourceOfIncome.objects.all()
     context = {
         'sources': sources,
@@ -67,7 +67,7 @@ def add_userincome(request):
 
 
 @login_required(login_url='authentication/login')
-def edit_userincome(request, userincome_id):
+def edit_user_income(request, userincome_id):
     userincome = UserIncome.objects.get(pk=userincome_id)
     context = {
         'userincome': userincome,
@@ -101,7 +101,7 @@ def edit_userincome(request, userincome_id):
 
 
 @login_required(login_url='authentication/login')
-def delete_userincome(request, userincome_id):
+def delete_user_income(request, userincome_id):
     userincome = UserIncome.objects.get(pk=userincome_id)
     try:
         userincome.delete()

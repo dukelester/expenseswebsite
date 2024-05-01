@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class UserIncome(models.Model):
-    amount = models.DecimalField()
+    amount = models.DecimalField(decimal_places=2, max_digits=20)
     date = models.DateField(default=now)
     description = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)

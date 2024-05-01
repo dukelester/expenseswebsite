@@ -52,7 +52,31 @@
     {% endfor %}
     </tbody>
   </table>
-  
+  <div class="row">
+    <div>
+      Showing Page {{ page_object.number }} of {{ page_object.paginator.num_pages }}
+    </div>
+  <nav aria-label="Page navigation example">
+
+    <ul class="pagination justify-content-center">
+      {% if page_object.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_object.previous_page_number }}">Previous</a>
+      </li>
+  {% endif %}
+      {% if page_object.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_object.next_page_number }}">Next</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_object.paginator.num_pages }}">{{ page_object.paginator.num_pages}}</a>
+      </li>
+      {% endif %}
+     
+    </ul>
+
+  </nav>
+</div>
 </div>
 {% else %}
 <h6> You do not have any expeses yest! Add expenses your now</h6>

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 from . models import Category, Expense
 
@@ -8,8 +9,11 @@ from . models import Category, Expense
 @login_required(login_url='authentication/login')
 def index(request):
     expenses = Expense.objects.filter(user=request.user).all()
-    print(expenses)
-    return render(request, 'expenses/index.html', { 'expenses': expenses })
+    paginator = Paginator(expenses, 4)
+    page_number = request.GET.get('page')
+    page_object = Paginator.get_page(paginator, page_number)
+    context = { 'expenses': expenses, 'page_object': page_object }
+    return render(request, 'expenses/index.html', context)
 
 @login_required(login_url='authentication/login')
 def add_expense(request):
@@ -87,4 +91,3 @@ def delete_expense(request, expense_id):
     except Exception as e:
         messages.error(request, f'{e} \n Error occurred while deleting')
         return redirect('expenses')
-

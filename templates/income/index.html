@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="main-wrapper mb-5">
+<div class="container-fluid mt-4" style="padding-top: 26px; background-color:rgb(229, 233, 243); border-radius:4px">
+  <div class="row">
+  <div class="col-md-9">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'income' %}">Income</a></li>
+        <li class="breadcrumb-item active" aria-current="page">My Incomes</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="col-md-3">
+    <a href="{% url 'add_expense' %}" class="btn btn-primary">Add Income</a>
+  </div>
+</div>
+</div>
+
+<br><br><br>
+<div class="row">
+  <div class="col-md-8"></div>
+  <div class="col-md-4">
+    
+    <nav class=" bg-light">
+      <form class="form-inline">
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search" id="searchField">
+      </form>
+    </nav>
+  </div>
+</div>
+{% comment %} {% if incomes %}
+<div class="container mt-4">
+  
+  <div class="expensesTable">
+  <table class=" table table-primary">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Amount ({{ currency }})</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for income in page_object %}
+      <tr>
+        <th scope="row">{{ forloop.counter}}</th>
+        <td>{{ income.amount }}</td>
+        <td>{{ income.source_of_income }}</td>
+        <td>{{ income.description }}</td>
+        <td> {{ income.date }}</td>
+        <td>
+          <a href="{% url 'edit_income' income.id %}" class="btn btn-secondary">Edit</a>
+        </td>
+        <td>
+          <a href="{% url 'delete_income' income.id %}" class="btn btn-danger">Delete</a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+  <div class="output">
+    <div class="container mt-4">
+  
+      <table class=" table table-primary">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Amount ({{ currency }})</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody class="tbody">
+          
+        </tbody>
+      </table>
+    
+  </div>
+</div>
+  <div class="row pagination-container">
+    <div>
+      Showing Page {{ page_object.number }} of {{ page_object.paginator.num_pages }}
+    </div>
+  <nav aria-label="Page navigation example">
+
+    <ul class="pagination justify-content-center">
+      {% if page_object.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_object.previous_page_number }}">Previous</a>
+      </li>
+  {% endif %}
+      {% if page_object.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_object.next_page_number }}">Next</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_object.paginator.num_pages }}">{{ page_object.paginator.num_pages}}</a>
+      </li>
+      {% endif %}
+     
+    </ul>
+
+  </nav>
+</div>
+</div>
+{% else %}
+<h6> You do not have any Income yet! Add Income your now</h6>
+{% endif %}
+</div> {% endcomment %}
+<script src="{% static 'js/searchIncome.js' %}"></script>
+ {% endblock %}

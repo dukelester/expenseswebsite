@@ -5,6 +5,8 @@ outputTable.style.display = 'none'
 const expensesTable = document.querySelector('.expensesTable');
 const pagination = document.querySelector('.pagination-container');
 
+const tableBody = document.querySelector('.tbody');
+
 searchField.addEventListener('keyup', (e) => {
     const searchValue = e.target.value;
     if (searchValue.trim()) {
@@ -16,7 +18,18 @@ searchField.addEventListener('keyup', (e) => {
         if (data.length === 0){
             outputTable.innerHTML = '<p> There is no results for you!</p>'
         } else {
+            console.log(data, data.length)
             outputTable.style.display = 'block';
+            data.forEach(element => {
+                tableBody.innerHTML += `
+                <td>${ element.id }</td>
+                <td>${ element.amount }</td>
+                <td>${ element.category }</td>
+                <td>${ element.description }</td>
+                <td> ${ element.date }</td>
+                `
+            });
+            
         }
     });
     } else {

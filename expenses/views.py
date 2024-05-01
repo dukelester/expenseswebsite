@@ -6,6 +6,7 @@ from django.http import JsonResponse
 import json
 
 from . models import Category, Expense
+from userpreferences.models import UserPreferences
 
 # Create your views here.
 
@@ -24,10 +25,11 @@ def search_expenses(request):
 @login_required(login_url='authentication/login')
 def index(request):
     expenses = Expense.objects.filter(user=request.user).all()
+    currency = UserPreferences.objects.get(user=request.user).currency
     paginator = Paginator(expenses, 5)
     page_number = request.GET.get('page')
     page_object = Paginator.get_page(paginator, page_number)
-    context = { 'expenses': expenses, 'page_object': page_object }
+    context = { 'expenses': expenses, 'page_object': page_object, 'currency': currency }
     return render(request, 'expenses/index.html', context)
 
 @login_required(login_url='authentication/login')

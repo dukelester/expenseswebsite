@@ -17,8 +17,11 @@ searchField.addEventListener('keyup', (e) => {
             outputTable.innerHTML = '<p> There is no results for you!</p>'
         } else {
             outputTable.style.display = 'block';
-            
         }
     });
+    } else {
+        outputTable.style.display = 'none';
+        pagination.style.display = 'block';
+        expensesTable.style.display = 'block';
     }
 });

@@ -19,6 +19,18 @@
 </div>
 </div>
 
+<br><br><br>
+<div class="row">
+  <div class="col-md-8"></div>
+  <div class="col-md-4">
+    
+    <nav class=" bg-light">
+      <form class="form-inline">
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search" id="searchField">
+      </form>
+    </nav>
+  </div>
+</div>
 {% if expenses %}
 <div class="container mt-4">
   
@@ -82,4 +94,5 @@
 <h6> You do not have any expeses yest! Add expenses your now</h6>
 {% endif %}
 </div>
+<script src="{% static 'js/searchExpenses.js' %}"></script>
  {% endblock %}

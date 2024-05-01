@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='incomes'),
+    path('', views.index, name='income'),
     path('add_income', views.add_user_income, name='add_income'),
     path('edit_income/<int:income_id>', views.edit_user_income, name='edit_income'),
     path('delete_income/<int:income_id>', views.delete_user_income, name='delete_income'),

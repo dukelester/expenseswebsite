@@ -48,10 +48,10 @@ def add_user_income(request):
 
         if not amount:
             messages.error(request, 'The amount cant be empty!')
-            return render(request, 'income/add_userincome.html', context)
+            return render(request, 'income/add_income.html', context)
         if not description:
             messages.error(request, 'The description cant be empty!')
-            return render(request, 'income/add_userincome.html', context)
+            return render(request, 'income/add_income.html', context)
         try:
             userincome = UserIncome.objects.create(
                 amount=amount,  date=user_income_date,
@@ -62,8 +62,8 @@ def add_user_income(request):
             return redirect('incomes')
         except Exception as e:
             messages.error(request, f'{e} \n Adding the userincome caused an error')
-            return render(request, 'income/add_userincome.html', context)
-    return render(request, 'income/add_userincome.html', context)
+            return render(request, 'income/add_income.html', context)
+    return render(request, 'income/add_income.html', context)
 
 
 @login_required(login_url='authentication/login')
@@ -82,10 +82,10 @@ def edit_user_income(request, userincome_id):
 
         if not amount:
             messages.error(request, 'The amount cant be empty!')
-            return render(request, 'income/edit_userincome.html', context)
+            return render(request, 'income/edit_income.html', context)
         if not description:
             messages.error(request, 'The description cant be empty!')
-            return render(request, 'income/edit_userincome.html', context)
+            return render(request, 'income/edit_income.html', context)
         try:
             userincome.amount = amount
             userincome.source_of_income = source_of_income
@@ -96,13 +96,13 @@ def edit_user_income(request, userincome_id):
             return redirect('incomes')
         except Exception as e:
             messages.error(request, f'{e} \n Error occurred while updating')
-            return render(request, 'income/edit_userincome.html', context)
-    return render(request, 'income/edit_userincome.html', context)
+            return render(request, 'income/edit_income.html', context)
+    return render(request, 'income/edit_income.html', context)
 
 
 @login_required(login_url='authentication/login')
-def delete_user_income(request, userincome_id):
-    userincome = UserIncome.objects.get(pk=userincome_id)
+def delete_user_income(request, income_id):
+    userincome = UserIncome.objects.get(pk=income_id)
     try:
         userincome.delete()
         messages.success(request, 'The userincome has been successfully deleted!')

@@ -12,13 +12,12 @@ from . models import Category, Expense
 def search_expenses(request):
     if request.method == 'POST':
         search_text = json.loads(request.body).get('searchText')
-        expenses = (Expense.objects.filter(amount__starts_with=search_text, user=request.user) |
-                    Expense.objects.filter(date__starts_with=search_text, user=request.user) |
+        expenses = (Expense.objects.filter(amount__istartswith=search_text, user=request.user) |
+                    Expense.objects.filter(date__istartswith=search_text, user=request.user) |
                     Expense.objects.filter(description__icontains=search_text, user=request.user) |
                     Expense.objects.filter(category__icontains=search_text, user=request.user)
                     )
         data = expenses.values()
-        print(data)
         return JsonResponse(list(data), safe=False)
 
 

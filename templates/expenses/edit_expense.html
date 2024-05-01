@@ -36,7 +36,7 @@
           </div>
           <div class="col-sm-3 my-1">
             <label class="sr-only" for="inlineFormInputName">Date Of Expense</label>
-            <input type="date" class="form-control" id="inlineFormInputName" name="expense_date" required value="{{ values.date }}">
+            <input type="date" class="form-control" id="inlineFormInputName" name="expense_date" required value="{{ values.date | date:'Y-m-d' }}">
           </div>
           <div class="col-auto my-1">
             <button type="submit" class="btn btn-primary">Save</button>

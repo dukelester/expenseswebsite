@@ -35,7 +35,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for expense in expenses %}
+      {% for expense in page_object %}
       <tr>
         <th scope="row">{{ forloop.counter}}</th>
         <td>{{ expense.amount }}</td>

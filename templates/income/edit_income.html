@@ -1,23 +1,23 @@
 
 {% extends "base.html" %}
 {% block content %}
-<h3> Add expense </h3>
+
 <div class="container mt-4">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{% url 'expenses' %}">Expenses</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Edit Expense</li>
+          <li class="breadcrumb-item"><a href="{% url 'income' %}">Income</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Edit Income</li>
         </ol>
       </nav>
       <div class="col-sm mt-4">
-        <a href="{% url 'delete_expense' expense.id %}" class="btn btn-danger">Delete Expense</a>
+        <a href="{% url 'delete_income' income.id %}" class="btn btn-danger">Delete Income</a>
         </div>
-      <form action="{% url 'edit_expense' expense.id %}" method="POST" class="form mt-4"> 
+      <form action="{% url 'edit_income' income.id %}" method="POST" class="form mt-4"> 
         {% csrf_token %}
         <div class="form-row align-items-center">
             
             <div class="col-sm-3 my-1">
-            <label class="sr-only" for="inlineFormInputName">Category</label>
+            <label class="sr-only" for="inlineFormInputName">Source Of Income</label>
 
             <select class="custom-select" id="inputGroupSelect02" name="category">
                 <option selected value="{{ values.category }}" name="category"> {{ values.category }}</option>
@@ -32,10 +32,10 @@
           </div>
           <div class="col-sm-3 my-1">
             <label class="sr-only" for="inlineFormInputName">Description</label>
-            <input type="text" class="form-control" placeholder="Travelled to Kiambu" name="description" required value="{{ values.description }}">
+            <input type="text" class="form-control" placeholder="savings" name="description" required value="{{ values.description }}">
           </div>
           <div class="col-sm-3 my-1">
-            <label class="sr-only" for="inlineFormInputName">Date Of Expense</label>
+            <label class="sr-only" for="inlineFormInputName">Date Of Income</label>
             <input type="date" class="form-control" id="inlineFormInputName" name="expense_date" required value="{{ values.date | date:'Y-m-d' }}">
           </div>
           <div class="col-auto my-1">

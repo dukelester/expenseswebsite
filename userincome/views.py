@@ -17,7 +17,7 @@ def search_user_income(request):
             UserIncome.objects.filter(amount__istartswith=search_text, user=request.user) |
             UserIncome.objects.filter(date__istartswith=search_text, user=request.user) |
             UserIncome.objects.filter(description__icontains=search_text, user=request.user) |
-            UserIncome.objects.filter(sourceofincome__icontains=search_text, user=request.user)
+            UserIncome.objects.filter(source_of_income__icontains=search_text, user=request.user)
                     )
         data = incomes.values()
         return JsonResponse(list(data), safe=False)
@@ -59,7 +59,7 @@ def add_user_income(request):
                 source_of_income=source_of_income)
             userincome.save()
             messages.success(request, 'The UserIncome was added successfully!')
-            return redirect('incomes')
+            return redirect('income')
         except Exception as e:
             messages.error(request, f'{e} \n Adding the userincome caused an error')
             return render(request, 'income/add_income.html', context)
@@ -67,18 +67,18 @@ def add_user_income(request):
 
 
 @login_required(login_url='authentication/login')
-def edit_user_income(request, userincome_id):
-    userincome = UserIncome.objects.get(pk=userincome_id)
+def edit_user_income(request, income_id):
+    user_income = UserIncome.objects.get(pk=income_id)
     context = {
-        'userincome': userincome,
-        'values': userincome,
-        'categories': SourceOfIncome.objects.all(),
+        'user_income': user_income,
+        'values': user_income,
+        'sources': SourceOfIncome.objects.all(),
     }
     if request.method == 'POST':
         amount = request.POST.get('amount')
         description = request.POST.get('description')
-        source_of_income = request.POST.get('sourceofincome')
-        user_income_date = request.POST.get('userincome_date')
+        source_of_income = request.POST.get('source')
+        user_income_date = request.POST.get('date')
 
         if not amount:
             messages.error(request, 'The amount cant be empty!')
@@ -87,13 +87,13 @@ def edit_user_income(request, userincome_id):
             messages.error(request, 'The description cant be empty!')
             return render(request, 'income/edit_income.html', context)
         try:
-            userincome.amount = amount
-            userincome.source_of_income = source_of_income
-            userincome.description = description
-            userincome.date = user_income_date
-            userincome.save()
-            messages.success(request, 'The UserIncome was updated successfully!')
-            return redirect('incomes')
+            user_income.amount = amount
+            user_income.source_of_income = source_of_income
+            user_income.description = description
+            user_income.date = user_income_date
+            user_income.save()
+            messages.success(request, 'The User Income was updated successfully!')
+            return redirect('income')
         except Exception as e:
             messages.error(request, f'{e} \n Error occurred while updating')
             return render(request, 'income/edit_income.html', context)
@@ -102,11 +102,11 @@ def edit_user_income(request, userincome_id):
 
 @login_required(login_url='authentication/login')
 def delete_user_income(request, income_id):
-    userincome = UserIncome.objects.get(pk=income_id)
+    user_income = UserIncome.objects.get(pk=income_id)
     try:
-        userincome.delete()
-        messages.success(request, 'The userincome has been successfully deleted!')
-        return redirect('incomes')
+        user_income.delete()
+        messages.success(request, 'The user income has been successfully deleted!')
+        return redirect('income')
     except Exception as e:
         messages.error(request, f'{e} \n Error occurred while deleting')
-        return redirect('incomes')
+        return redirect('income')

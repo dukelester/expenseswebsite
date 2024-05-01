@@ -44,7 +44,7 @@ def add_user_income(request):
         amount = request.POST.get('amount')
         description = request.POST.get('description')
         source_of_income = request.POST.get('source')
-        user_income_date = request.POST.get('date')
+        user_income_date = request.POST.get('icome_date')
 
         if not amount:
             messages.error(request, 'The amount cant be empty!')
@@ -69,6 +69,7 @@ def add_user_income(request):
 @login_required(login_url='authentication/login')
 def edit_user_income(request, income_id):
     user_income = UserIncome.objects.get(pk=income_id)
+    print(user_income, 'IIIIIIIIIIIII', income_id)
     context = {
         'user_income': user_income,
         'values': user_income,
@@ -78,7 +79,7 @@ def edit_user_income(request, income_id):
         amount = request.POST.get('amount')
         description = request.POST.get('description')
         source_of_income = request.POST.get('source')
-        user_income_date = request.POST.get('date')
+        user_income_date = request.POST.get('icome_date')
 
         if not amount:
             messages.error(request, 'The amount cant be empty!')

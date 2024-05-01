@@ -9,9 +9,9 @@
           <li class="breadcrumb-item active" aria-current="page">Edit Income</li>
         </ol>
       </nav>
-      <div class="col-sm mt-4">
+     <div class="col-sm mt-4">
         <a href="{% url 'delete_income' income.id %}" class="btn btn-danger">Delete Income</a>
-        </div>
+        </div> 
       <form action="{% url 'edit_income' income.id %}" method="POST" class="form mt-4"> 
         {% csrf_token %}
         <div class="form-row align-items-center">
@@ -19,10 +19,10 @@
             <div class="col-sm-3 my-1">
             <label class="sr-only" for="inlineFormInputName">Source Of Income</label>
 
-            <select class="custom-select" id="inputGroupSelect02" name="category">
-                <option selected value="{{ values.category }}" name="category"> {{ values.category }}</option>
-                {% for category in categories %}
-                <option name="category" value="{{ category.name }}" >{{ category.name }}</option>
+            <select class="custom-select" id="inputGroupSelect02" name="source">
+                <option selected value="{{ values.source }}" name="source"> {{ values.source }}</option>
+                {% for source in sources %}
+                <option name="source" value="{{ source.name }}" >{{ source.name }}</option>
                 {% endfor %}
               </select>
             </div>
@@ -36,7 +36,7 @@
           </div>
           <div class="col-sm-3 my-1">
             <label class="sr-only" for="inlineFormInputName">Date Of Income</label>
-            <input type="date" class="form-control" id="inlineFormInputName" name="expense_date" required value="{{ values.date | date:'Y-m-d' }}">
+            <input type="date" class="form-control" id="inlineFormInputName" name="icome_date" required value="{{ values.icome_date | date:'Y-m-d' }}">
           </div>
           <div class="col-auto my-1">
             <button type="submit" class="btn btn-primary">Save</button>

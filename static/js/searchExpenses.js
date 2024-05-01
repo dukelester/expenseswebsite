@@ -11,6 +11,7 @@ searchField.addEventListener('keyup', (e) => {
     const searchValue = e.target.value;
     if (searchValue.trim()) {
         pagination.style.display = 'none';
+        tableBody.innerHTML = '';
         fetch('/search_expense', {body: JSON.stringify({searchText: searchValue})
         , method: "POST"
     }).then((res) => res.json()).then((data) => {

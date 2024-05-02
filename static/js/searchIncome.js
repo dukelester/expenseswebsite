@@ -15,7 +15,7 @@ searchField.addEventListener('keyup', (e) => {
     if (searchValue.trim()) {
         pagination.style.display = 'none';
         tableBody.innerHTML = '';
-        fetch('/search_income', {body: JSON.stringify({searchText: searchValue})
+        fetch('income/search_income', {body: JSON.stringify({searchText: searchValue})
         , method: "POST"
     }).then((res) => res.json()).then((data) => {
         expensesTable.style.display = 'none';

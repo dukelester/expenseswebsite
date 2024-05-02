@@ -94,7 +94,7 @@ def edit_user_income(request, income_id):
             user_income.date = user_income_date
             user_income.save()
             messages.success(request, 'The User Income was updated successfully!')
-            return redirect('expenses')
+            return redirect('income')
         except Exception as e:
             messages.error(request, f'{e} \n Error occurred while updating')
             return render(request, 'income/edit_income.html', context)

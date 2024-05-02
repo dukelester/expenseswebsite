@@ -20,7 +20,7 @@
             <label class="sr-only" for="inlineFormInputName">Source Of Income</label>
 
             <select class="custom-select" id="inputGroupSelect02" name="source">
-                <option selected value="{{ values.source }}" name="source"> {{ values.source }}</option>
+                <option selected value="{{ values.source_of_income }}" name="source"> {{ values.source_of_income }}</option>
                 {% for source in sources %}
                 <option name="source" value="{{ source.name }}" >{{ source.name }}</option>
                 {% endfor %}

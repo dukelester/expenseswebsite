@@ -9,10 +9,10 @@
           <li class="breadcrumb-item active" aria-current="page">Edit Income</li>
         </ol>
       </nav>
-     <div class="col-sm mt-4">
+     {% comment %} <div class="col-sm mt-4">
         <a href="{% url 'delete_income' income.id %}" class="btn btn-danger">Delete Income</a>
-        </div> 
-      <form action="{% url 'edit_income' income.id %}" method="POST" class="form mt-4"> 
+        </div>  {% endcomment %}
+      <form action="#" method="POST" class="form mt-4"> 
         {% csrf_token %}
         <div class="form-row align-items-center">
             
@@ -36,7 +36,7 @@
           </div>
           <div class="col-sm-3 my-1">
             <label class="sr-only" for="inlineFormInputName">Date Of Income</label>
-            <input type="date" class="form-control" id="inlineFormInputName" name="icome_date" required value="{{ values.icome_date | date:'Y-m-d' }}">
+            <input type="date" class="form-control" id="inlineFormInputName" name="icome_date" required value="{{ values.date | date:'Y-m-d' }}">
           </div>
           <div class="col-auto my-1">
             <button type="submit" class="btn btn-primary">Save</button>

@@ -73,7 +73,7 @@ def edit_user_income(request, income_id):
     context = {
         'user_income': user_income,
         'values': user_income,
-        'sources': SourceOfIncome.objects.all(),
+        'sources': SourceOfIncome.objects.filter(user=request.user).all(),
     }
     if request.method == 'POST':
         amount = request.POST.get('amount')
@@ -94,7 +94,7 @@ def edit_user_income(request, income_id):
             user_income.date = user_income_date
             user_income.save()
             messages.success(request, 'The User Income was updated successfully!')
-            return redirect('income')
+            return redirect('expenses')
         except Exception as e:
             messages.error(request, f'{e} \n Error occurred while updating')
             return render(request, 'income/edit_income.html', context)
@@ -104,6 +104,7 @@ def edit_user_income(request, income_id):
 @login_required(login_url='authentication/login')
 def delete_user_income(request, income_id):
     user_income = UserIncome.objects.get(pk=income_id)
+    print(user_income)
     try:
         user_income.delete()
         messages.success(request, 'The user income has been successfully deleted!')

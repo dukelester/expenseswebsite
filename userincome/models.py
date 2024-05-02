@@ -18,6 +18,7 @@ class UserIncome(models.Model):
 
 class SourceOfIncome(models.Model):
     name = models.CharField(max_length=300)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = 'Sources Of Income'

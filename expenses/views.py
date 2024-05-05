@@ -7,6 +7,9 @@ import datetime
 import json
 import csv
 
+import xlwt
+
+
 from . models import Category, Expense
 from userpreferences.models import UserPreferences
 
@@ -157,4 +160,24 @@ def export_csv(request):
 
 
 def export_excel(request):
-    pass
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = f"""attachment; filename=Expenses{str(datetime.datetime.now())}.xls"""
+    workbook = xlwt.Workbook(encoding='utfg-8')
+    wooksheet = workbook.add_sheet('Expenses')
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+    columns = ['Amount', 'Description', 'Category', 'Date']
+    for col_num in range(len(columns)):
+        wooksheet.write(row_num, col_num, columns[col_num], font_style)
+    font_style = xlwt.XFStyle()
+
+    rows = Expense.objects.filter(user=request.user).values_list(
+        'amount', 'description', 'category', 'date'
+    )
+    for row in rows:
+        row_num += 1
+        for col_num in range(len(row)):
+            wooksheet.write(row_num, col_num, str(row[col_num]), font_style)
+    workbook.save(response)
+    return response

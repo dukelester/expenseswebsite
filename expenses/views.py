@@ -189,12 +189,14 @@ def export_excel(request):
 
 
 def export_pdf(request):
+    expenses = Expense.objects.filter(user=request.user)
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = f"""inline; attachment; filename=Expenses{str(datetime.datetime.now())}.pdf"""
     response['Content-Transfer-Encoding'] = 'binary'
     
+    summation = expenses.aggregate(Sum('amount'))
     html_string = render_to_string('expenses/pdf_output.html', {
-        'expenses': [], 'total': 0
+        'expenses': expenses, 'total': summation
     })
     html = HTML(string=html_string)
     result = html.write_pdf()

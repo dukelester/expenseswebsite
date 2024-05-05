@@ -200,5 +200,19 @@ def reset_user_password(request, uidb64, token):
         'uidb64': uidb64,
         'token': token,
     }
+    if request.method == 'POST':
+        password1 = request.POST.het('password1')
+        password2 = request.POST.het('password2')
+        if password1 != password2:
+            messages.error(request, 'Passwords do not much')
+            return render(request, 'authentication/set-newpassword.html', context)
+        if len(password1) < 6:
+            messages.error(request, 'Password is too short')
+            return render(request, 'authentication/set-newpassword.html', context)
+        user_id = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=user_id)
+        user.password = password1
+        user.save()
+        messages.success(request, 'Your password reset was successfull')
+        return redirect('login')
     return render(request, 'authentication/set-newpassword.html', context)
-    

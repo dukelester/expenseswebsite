@@ -16,13 +16,45 @@
                 @top-center {
                     content: "Ekash"
                 }
+                @bottom-right{
+                    content: "Page" counter(page) " of " counter(pages)
+                }
             }
             
         </style>
     </head>
     <body>
        
+        <h3 class="heading">Expense list</h3>
         
+        <table class="table table-secondary">
+            
+            <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Amount</th>
+                  <th>Category</th>
+                  <th>Description</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for expense in expenses %}
+                <tr>
+                  <th scope="row">{{ forloop.counter}}</th>
+                  <td>{{ expense.amount }}</td>
+                  <td>{{ expense.category }}</td>
+                  <td>{{ expense.description }}</td>
+                  <td> {{ expense.date }}</td>
+                  
+                </tr>
+              {% endfor %}
+              <tr> 
+                <td>Total</td>
+                <td>{{total}}</td>
+              </tr>
+              </tbody>
+            </table>
         <script src="" async defer></script>
     </body>
 </html>

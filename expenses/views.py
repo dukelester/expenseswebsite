@@ -196,7 +196,7 @@ def export_pdf(request):
     
     summation = expenses.aggregate(Sum('amount'))
     html_string = render_to_string('expenses/pdf_output.html', {
-        'expenses': expenses, 'total': summation
+        'expenses': expenses, 'total': summation['amount__sum']
     })
     html = HTML(string=html_string)
     result = html.write_pdf()

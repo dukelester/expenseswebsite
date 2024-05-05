@@ -148,3 +148,9 @@ def logout(request):
     auth.logout(request)
     messages.success(request, 'You have successfully logged out!')
     return redirect('/authentication/login')
+
+
+def password_reset(request):
+    if request.method == 'POST':
+        pass
+    return render(request, 'authentication/reset-password.html')

@@ -31,12 +31,14 @@
               <div class="input-block mb-4 text-center">
                 <button class="btn btn-primary account-btn" type="submit">Login</button>
               </div>
+              <div class="container">
               <div class="account-footer">
                 <p>Don't Have an Account? <a href="{% url 'register' %}">Create Account</a></p>
               </div>
               <div class="account-footer">
-                <p>Forgot your password? <a href="">Forgot password</a></p>
+                <p>Forgot your password? <a href="{% url 'request_rest_link' %}">Forgot password</a></p>
               </div>
+            </div>
             </form>
             <!-- /Account Form -->
           </div>

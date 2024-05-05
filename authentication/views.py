@@ -192,3 +192,9 @@ def password_reset(request):
                         Follow the instructions to reset your password.''')
         return render(request, 'authentication/reset-password.html', context)
     return render(request, 'authentication/reset-password.html')
+
+
+def reset_user_password(request, uidb64, token):
+    
+    return render(request, 'authentication/set-newpassword.html')
+    

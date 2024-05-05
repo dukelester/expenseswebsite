@@ -154,3 +154,7 @@ def export_csv(request):
         writer.writerow([expense.amount, expense.description,
                         expense.category, expense.date])
     return response
+
+
+def export_excel(request):
+    pass

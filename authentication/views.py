@@ -201,8 +201,8 @@ def reset_user_password(request, uidb64, token):
         'token': token,
     }
     if request.method == 'POST':
-        password1 = request.POST.het('password1')
-        password2 = request.POST.het('password2')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
         if password1 != password2:
             messages.error(request, 'Passwords do not much')
             return render(request, 'authentication/set-newpassword.html', context)

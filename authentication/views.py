@@ -145,6 +145,8 @@ def login(request):
 def  register_success(request):
     return render(request, 'authentication/success_registration.html')
 
+def success_password_request(request):
+    return render(request, 'authentication/success_password_request.html')
 def logout(request):
     auth.logout(request)
     messages.success(request, 'You have successfully logged out!')
@@ -161,7 +163,6 @@ def password_reset(request):
             messages.error(request, 'Please enter a valid email')
             return render(request, 'authentication/reset-password.html')
         user = User.objects.filter(email=email)
-        print(user)
         if user.exists():
             uidb64 = urlsafe_base64_encode(force_bytes(user[0].pk))
             # Get the current email
@@ -187,7 +188,7 @@ def password_reset(request):
                 [email,],
             )
             email.send(fail_silently=False)
-            return redirect('/authentication/success')
+            return redirect('/authentication/success_password_request')
         messages.success(request, '''We have sent you an email.
                         Follow the instructions to reset your password.''')
         return render(request, 'authentication/reset-password.html', context)
@@ -195,6 +196,5 @@ def password_reset(request):
 
 
 def reset_user_password(request, uidb64, token):
-    
     return render(request, 'authentication/set-newpassword.html')
     

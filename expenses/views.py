@@ -181,3 +181,7 @@ def export_excel(request):
             wooksheet.write(row_num, col_num, str(row[col_num]), font_style)
     workbook.save(response)
     return response
+
+
+def export_pdf(request):
+    pass

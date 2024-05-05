@@ -16,10 +16,21 @@ from validate_email import validate_email
 
 import json
 import os
+import threading
+
 # Create your views here.
 from .utills import token_generator
 
 load_dotenv()
+
+class EmailThread(threading.Thread):
+    def __init__(self, email):
+        self.email = email
+        threading.Thread.__init__(self)
+
+    def run(self):
+        self.email.send(fail_silently=False)
+    
 class EmailValidationView(View):
     def post(self, request):
         data = json.loads(request.body)
@@ -99,7 +110,8 @@ def register(request):
                         os.getenv("DEFAULT_FROM_EMAIL"),
                         [email,],
                     )
-                    email.send(fail_silently=False)
+                    # email.send(fail_silently=False)
+                    EmailThread(email).start()
                     return redirect('/authentication/success')
                 messages.info(request, 'Password must match')
                 return render(request, 'authentication/register.html', context)
@@ -187,7 +199,8 @@ def password_reset(request):
                 os.getenv("DEFAULT_FROM_EMAIL"),
                 [email,],
             )
-            email.send(fail_silently=False)
+            # email.send(fail_silently=False)
+            EmailThread(email).start()
             return redirect('/authentication/success_password_request')
         messages.success(request, '''We have sent you an email.
                         Follow the instructions to reset your password.''')

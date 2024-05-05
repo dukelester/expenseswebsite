@@ -5,10 +5,11 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.mail import EmailMessage
-from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
+from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib import auth
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 from dotenv import load_dotenv
 from validate_email import validate_email
@@ -152,5 +153,42 @@ def logout(request):
 
 def password_reset(request):
     if request.method == 'POST':
-        pass
+        email = request.POST.get('email')
+        context = {
+            'values': request.POST,
+        }
+        if not validate_email(email):
+            messages.error(request, 'Please enter a valid email')
+            return render(request, 'authentication/reset-password.html')
+        user = User.objects.filter(email=email)
+        print(user)
+        if user.exists():
+            uidb64 = urlsafe_base64_encode(force_bytes(user[0].pk))
+            # Get the current email
+            domain = get_current_site(request).domain
+            # get the link
+            link = reverse('reset_user_password',
+                        kwargs={
+                            'uidb64': uidb64,
+                            'token': PasswordResetTokenGenerator().make_token(user[0]),
+                            })
+            reset_password_link = f'http://{domain}/{link}'
+            subject = 'Password Reset'
+            email_body = f'''
+            Hello {user[0].username}
+            Your password reset request has been received.
+            Click on the link below to reset your password.
+            {reset_password_link}
+            '''
+            email = EmailMessage(
+                subject,
+                email_body,
+                os.getenv("DEFAULT_FROM_EMAIL"),
+                [email,],
+            )
+            email.send(fail_silently=False)
+            return redirect('/authentication/success')
+        messages.success(request, '''We have sent you an email.
+                        Follow the instructions to reset your password.''')
+        return render(request, 'authentication/reset-password.html', context)
     return render(request, 'authentication/reset-password.html')

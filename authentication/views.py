@@ -200,6 +200,14 @@ def reset_user_password(request, uidb64, token):
         'uidb64': uidb64,
         'token': token,
     }
+    try:
+        user_id = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=user_id)
+        if not PasswordResetTokenGenerator().check_token(user, token):
+            messages.error(request, 'The link is invalid or has expired. Request a new one')
+            return redirect('request_rest_link')
+    except Exception as e:
+        return e 
     if request.method == 'POST':
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')

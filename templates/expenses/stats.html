@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="main-wrapper mb-5">
+<div class="container-fluid mt-4" style="padding-top: 26px; background-color:rgb(229, 233, 243); border-radius:4px">
+  <div class="row">
+  <div class="col-md-9">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'expenses' %}">Expenses</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Expenses Summary</li>
+      </ol>
+    </nav>
+  </div>
+
+</div>
+</div>
+<div>
+    <canvas id="myChart"></canvas>
+  </div>
+  
+<script src="{% static 'js/stats.js' %}"></script>
+ {% endblock %}

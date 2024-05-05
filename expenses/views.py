@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+import datetime
 import json
 
 from . models import Category, Expense
@@ -109,3 +110,34 @@ def delete_expense(request, expense_id):
     except Exception as e:
         messages.error(request, f'{e} \n Error occurred while deleting')
         return redirect('expenses')
+
+
+def expenses_category_summary(request):
+    todays_date = datetime.date.today()
+    print('Todays date is ', todays_date)
+    # Six months ago
+    six_months_ago = todays_date - datetime.timedelta(days=30*6)
+    print('six months ago', six_months_ago)
+    expenses = Expense.objects.filter(user=request.user,
+        date__gte=six_months_ago, date__lte=todays_date
+    )
+    final_data = {}
+
+    def get_category(expense):
+        return expense.category
+    category_list = list(set(map(get_category, expenses)))
+    print('category_list', category_list)
+    def get_expense_category_amount(category):
+        amount = 0
+        filtered_by_category = expenses.filter(category=category)
+        for item in filtered_by_category:
+            amount += item.amount
+        return amount
+
+    for expense in expenses:
+        for category in category_list:
+            final_data[category] = get_expense_category_amount(category)
+    return JsonResponse({'expense_category_data': final_data}, safe=False)
+
+def stats_view(request):
+    return render(request, 'expenses/stats.html')

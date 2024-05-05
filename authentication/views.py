@@ -196,5 +196,9 @@ def password_reset(request):
 
 
 def reset_user_password(request, uidb64, token):
-    return render(request, 'authentication/set-newpassword.html')
+    context = {
+        'uidb64': uidb64,
+        'token': token,
+    }
+    return render(request, 'authentication/set-newpassword.html', context)
     

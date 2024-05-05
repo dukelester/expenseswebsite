@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 import datetime
 import json
+import csv
 
 from . models import Category, Expense
 from userpreferences.models import UserPreferences
@@ -141,3 +142,16 @@ def expenses_category_summary(request):
 
 def stats_view(request):
     return render(request, 'expenses/stats.html')
+
+
+def export_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f"""attachment; filename=Expenses
+                                    {datetime.datetime.now()}.csv"""
+    writer = csv.writer(response)
+    writer.writerow(['Amount', 'Description', 'Category', 'Date'])
+    expenses = Expense.objects.filter(user=request.user)
+    for expense in expenses:
+        writer.writerow([expense.amount, expense.description,
+                        expense.category, expense.date])
+    return response
